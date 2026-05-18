@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waaaaaa!</title>
+    <style>
+        body { background-color: #171a21; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 20%; }
+    </style>
+</head>
+<body>
+
+    <p>Apertura di Steam in corso...</p>
+
+    <script>
+        (function() {
+            const gameId = "2555000";
+            const fallbackUrl = `https://store.steampowered.com/app/${gameId}/`;
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const queryString = window.location.search || ""; 
+            const finalWebUrl = fallbackUrl + queryString;
+
+            if (/android/i.test(userAgent)) {
+                // Modificato: rimosso il blocco del Play Store. 
+                // Se l'app manca, si apre direttamente il browser.
+                const encodedFallback = encodeURIComponent(finalWebUrl);
+                window.location.href = `intent://store.steampowered.com/app/${gameId}/${queryString}#Intent;scheme=https;S.browser_fallback_url=${encodedFallback};end;`;
+            } 
+            else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                // Per iOS: prova ad aprire l'app.
+                window.location.href = `steam://openurl/${finalWebUrl}`;
+                
+                // Se l'app non c'è, passa al browser dopo 1.5 secondi.
+                setTimeout(function() {
+                    window.location.href = finalWebUrl;
+                }, 1500);
+            } 
+            else {
+                // Desktop
+                window.location.href = finalWebUrl;
+            }
+        })();
+    </script>
+
+</body>
+</html>
