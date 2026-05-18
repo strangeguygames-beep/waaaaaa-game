@@ -8,8 +8,9 @@
         body { background-color: #171a21; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 15%; margin: 0; }
         .btn { display: inline-block; padding: 15px 30px; background-color: #2a475e; color: #66c0f4; border: none; border-radius: 5px; font-size: 18px; text-decoration: none; font-weight: bold; margin-top: 25px; cursor: pointer; }
         .btn:hover { background-color: #3b6485; }
-        .hint { color: #8f98a0; font-size: 14px; margin-top: 30px; padding: 0 20px; }
+        .hint { color: #8f98a0; font-size: 14px; margin-top: 30px; padding: 0 20px; line-height: 1.5; }
         .game-img { width: 80%; max-width: 300px; height: auto; border-radius: 8px; }
+        .highlight { color: #66c0f4; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -20,10 +21,12 @@
 
     <div id="ios-prompt" style="display:none;">
         <img src="Logo_1-1.png" class="game-img" alt="Waaaaaa Logo">
-        
         <br>
-        <a id="steam-btn" class="btn" href="#">OPEN IN STEAM APP</a>
-        <p class="hint">If it doesn't open, tap the 3 dots in the top right and select "Open in external browser".</p>
+        <a id="steam-btn" class="btn" href="#">VIEW ON STEAM</a>
+        <p class="hint">
+            💡 <span class="highlight">Want to use the Steam App?</span><br>
+            Tap the <span class="highlight">3 dots (...)</span> in the top right and select <span class="highlight">"Open in external browser"</span>.
+        </p>
     </div>
 
     <script>
@@ -36,17 +39,10 @@
             const isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
             if (isiOS) {
+                // Su iPhone mostriamo subito la pagina di atterraggio pulita
                 document.getElementById("loading").style.display = "none";
                 document.getElementById("ios-prompt").style.display = "block";
-                
-                const btn = document.getElementById("steam-btn");
-                btn.href = `steam://openurl/${finalWebUrl}`;
-                
-                btn.addEventListener('click', function() {
-                    setTimeout(function() {
-                        window.location.href = finalWebUrl;
-                    }, 2000);
-                });
+                document.getElementById("steam-btn").href = finalWebUrl;
             } 
             else if (/android/i.test(userAgent)) {
                 const encodedFallback = encodeURIComponent(finalWebUrl);
