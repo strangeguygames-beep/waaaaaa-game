@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waaaaaa!</title>
     <style>
-        body { background-color: #171a21; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 20%; }
+        body { background-color: #171a21; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 15%; margin: 0; }
+        .btn { display: inline-block; padding: 15px 30px; background-color: #2a475e; color: #66c0f4; border: none; border-radius: 5px; font-size: 18px; text-decoration: none; font-weight: bold; margin-top: 25px; cursor: pointer; }
+        .btn:hover { background-color: #3b6485; }
+        .hint { color: #8f98a0; font-size: 14px; margin-top: 30px; padding: 0 20px; }
+        .game-img { width: 80%; max-width: 300px; height: auto; border-radius: 8px; }
     </style>
 </head>
 <body>
 
-    <p>Apertura di Steam in corso...</p>
+    <div id="loading">
+        <p>Opening Steam...</p>
+    </div>
+
+    <div id="ios-prompt" style="display:none;">
+        <img src="Logo_1-1.png" class="game-img" alt="Waaaaaa Logo">
+        
+        <br>
+        <a id="steam-btn" class="btn" href="#">OPEN IN STEAM APP</a>
+        <p class="hint">If it doesn't open, tap the 3 dots in the top right and select "Open in external browser".</p>
+    </div>
 
     <script>
         (function() {
@@ -19,24 +33,26 @@
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
             const queryString = window.location.search || ""; 
             const finalWebUrl = fallbackUrl + queryString;
+            const isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
-            if (/android/i.test(userAgent)) {
-                // Modificato: rimosso il blocco del Play Store. 
-                // Se l'app manca, si apre direttamente il browser.
+            if (isiOS) {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("ios-prompt").style.display = "block";
+                
+                const btn = document.getElementById("steam-btn");
+                btn.href = `steam://openurl/${finalWebUrl}`;
+                
+                btn.addEventListener('click', function() {
+                    setTimeout(function() {
+                        window.location.href = finalWebUrl;
+                    }, 2000);
+                });
+            } 
+            else if (/android/i.test(userAgent)) {
                 const encodedFallback = encodeURIComponent(finalWebUrl);
                 window.location.href = `intent://store.steampowered.com/app/${gameId}/${queryString}#Intent;scheme=https;S.browser_fallback_url=${encodedFallback};end;`;
             } 
-            else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                // Per iOS: prova ad aprire l'app.
-                window.location.href = `steam://openurl/${finalWebUrl}`;
-                
-                // Se l'app non c'è, passa al browser dopo 1.5 secondi.
-                setTimeout(function() {
-                    window.location.href = finalWebUrl;
-                }, 1500);
-            } 
             else {
-                // Desktop
                 window.location.href = finalWebUrl;
             }
         })();
