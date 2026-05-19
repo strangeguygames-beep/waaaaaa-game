@@ -50,14 +50,15 @@
             const gameId = "2555000";
             const fallbackUrl = `https://store.steampowered.com/app/${gameId}/`;
             const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            let queryString = window.location.search || ""; 
             
             const isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
             const isAndroid = /android/i.test(userAgent);
-
             const deviceType = isiOS ? "ios" : (isAndroid ? "android" : "desktop");
-            const separator = queryString ? "&" : "?";
-            queryString += `${separator}utm_device=${deviceType}`;
+
+            // Riscrive gli UTM usando un parametro standard letto da Steam
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('utm_term', deviceType); // Mette il dispositivo nella colonna TERMINE
+            const queryString = "?" + urlParams.toString();
 
             const finalWebUrl = fallbackUrl + queryString;
 
@@ -75,7 +76,6 @@
                 }, 100);
             } 
             else {
-                // Modificato: ora forza l'apertura dell'applicazione desktop di Steam su PC
                 window.location.href = `steam://store/${gameId}`;
             }
         })();
