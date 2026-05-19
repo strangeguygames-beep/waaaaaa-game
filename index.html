@@ -19,7 +19,7 @@
         .steam-loader-container { position: relative; width: 70px; height: 70px; margin: 0 auto 25px auto; display: flex; align-items: center; justify-content: center; }
         .steam-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 4px solid #2a475e; border-top: 4px solid #66c0f4; border-radius: 50%; animation: spin 1s linear infinite; box-sizing: border-box; }
         
-        /* Logo ancora più vicino allo spinner */
+        /* Logo vicino allo spinner */
         .steam-logo { width: 56px; height: 56px; z-index: 2; opacity: 0.8; }
         
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -75,7 +75,8 @@
                 }, 100);
             } 
             else {
-                window.location.href = finalWebUrl;
+                // Modificato: ora forza l'apertura dell'applicazione desktop di Steam su PC
+                window.location.href = `steam://store/${gameId}`;
             }
         })();
     </script>
