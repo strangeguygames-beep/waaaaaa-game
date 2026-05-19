@@ -5,82 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waaaaaa!</title>
     <style>
-        body { background-color: #171a21; color: white; font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; height: 100vh; display: flex; align-items: center; justify-content: center; }
-       
-        #loading-status, #ios-bridge { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; padding: 20px; box-sizing: border-box; }
-        #ios-bridge { display: none; } 
+        body { background-color: #171a21; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 15%; margin: 0; }
+        .btn { display: inline-block; padding: 15px 30px; background-color: #2a475e; color: #66c0f4; border: none; border-radius: 5px; font-size: 18px; text-decoration: none; font-weight: bold; margin-top: 25px; cursor: pointer; }
+        .btn:hover { background-color: #3b6485; }
+        .hint { color: #8f98a0; font-size: 14px; margin-top: 30px; padding: 0 20px; line-height: 1.5; }
+        .game-img { width: 80%; max-width: 300px; height: auto; border-radius: 8px; }
+        .highlight { color: #66c0f4; font-weight: bold; }
 
-        .game-img { width: 80%; max-width: 250px; height: auto; border-radius: 8px; margin-bottom: 30px; }
-        
-        /* SPINNER DI STEAM IN CSS */
-        .steam-loader-container { position: relative; width: 70px; height: 70px; margin-bottom: 25px; }
+        /* Spinner Android */
+        #android-spinner { display: none; margin: 0 auto; flex-direction: column; align-items: center; justify-content: center; }
+        .steam-loader-container { position: relative; width: 70px; height: 70px; margin: 0 auto 25px auto; }
         .steam-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 4px solid #2a475e; border-top: 4px solid #66c0f4; border-radius: 50%; animation: spin 1s linear infinite; box-sizing: border-box; }
         .steam-logo-svg { width: 40px; height: 40px; position: absolute; top: 15px; left: 15px; fill: #8f98a0; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .btn { display: inline-block; padding: 15px 30px; background-color: #2a475e; color: #66c0f4; border: none; border-radius: 5px; font-size: 18px; text-decoration: none; font-weight: bold; cursor: pointer; }
-        .btn:hover { background-color: #3b6485; }
-        
-        .hint { color: #8f98a0; font-size: 14px; margin-top: 30px; line-height: 1.5; max-width: 350px; margin-left: auto; margin-right: auto; }
-        .highlight { color: #66c0f4; font-weight: bold; }
+        #loading-text { font-size: 16px; font-weight: bold; color: #8f98a0; }
     </style>
 </head>
 <body>
 
-    <div id="loading-status">
-        <p>Verifying device...</p>
+    <div id="loading">
+        <p>Opening Steam...</p>
     </div>
 
-    <div id="ios-bridge">
-        <img src="Logo_1-1.png" class="game-img" alt="Waaaaaa Logo">
-       
+    <div id="android-spinner">
         <div class="steam-loader-container">
             <div class="steam-ring"></div>
             <svg class="steam-logo-svg" viewBox="0 0 496 512">
                 <path d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 1.5-22.9-5.5-31.5-6.7-8.2-18-12-28.5-9.9-10.4 2-20.7 7.7-29.3 16.5-12.8 13.1-23.7 34.6-29.2 55.4C42.8 409 6.2 334 6.2 256 6.2 119 117.2 8 254.2 8 391.2 8 496 119 496 256zM291.1 317.4c-5.9-4.2-14.7-4.6-21.3-1.1-6.1 3.2-10 9.8-10.2 16.9-.2 7 3.3 13.9 9.1 17.4 6 3.6 13.7 3.8 20.1.5 6.4-3.3 10.8-9.8 11.4-16.9.5-6.8-2.6-13-9.1-16.8zm-114.6-79.5c-17.7 0-33.6 12.1-37.6 29.5-3.6 15.3 4.1 30.2 17.5 37.3 12.8 6.7 28.5 4.6 39.1-5.3 11.2-10.4 14.8-26.6 8.5-40.4-5.6-12.2-17.7-21.1-27.5-21.1zm-84.3 90.9c-9.1-8.5-22.6-12.3-35.3-9.9l-49.3 35.8c-10.9-1.3-22.1-2-33.3-2-21 0-41.5 3.3-60.8 9.5 26.6 62.1 88.5 105.7 160.8 105.7 6.4 0 12.7-.4 18.9-1.1l-22.4-44.5c1.4-4.2 1.4-8.8 0-13l-13-41c10.4 2.4 21.4 1.2 30.8-3.4 9.4-4.6 16.4-12.4 19.3-22.3 2.8-9.5 .6-19.8-5.3-28.5-5.6-8.2-14.6-13.6-24-15.3h-6.4z"/>
             </svg>
         </div>
-
-        <a id="steam-btn" class="btn" href="#">VIEW ON STEAM</a>
-       
-        <p class="hint">
-            💡 <span class="highlight">Want to use the Steam App?</span><br>
-            Tap the <span class="highlight">3 dots (...)</span> in the top right and select <span class="highlight">"Open in external browser"</span>.
-        </p>
+        <div id="loading-text">Connecting to Steam...</div>
     </div>
 
-    <script>
-        (function() {
-            const gameId = "2555000";
-            const fallbackUrl = `https://store.steampowered.com/app/${gameId}/`;
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            let queryString = window.location.search || ""; 
-            
-            const isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-            const isAndroid = /android/i.test(userAgent);
-
-            // Rileva il dispositivo e aggiorna i parametri UTM
-            const deviceType = isiOS ? "ios" : (isAndroid ? "android" : "desktop");
-            const separator = queryString ? "&" : "?";
-            queryString += `${separator}utm_device=${deviceType}`;
-
-            const finalWebUrl = fallbackUrl + queryString;
-
-            if (isiOS) {
-                document.getElementById("loading-status").style.display = "none";
-                document.getElementById("ios-bridge").style.display = "flex";
-                document.getElementById("steam-btn").href = finalWebUrl;
-            } 
-            else if (isAndroid) {
-                const encodedFallback = encodeURIComponent(finalWebUrl);
-                const intentUrl = `intent://store.steampowered.com/app/${gameId}/${queryString}#Intent;scheme=https;S.browser_fallback_url=${encodedFallback};end;`;
-                window.location.href = intentUrl;
-            } 
-            else {
-                window.location.href = finalWebUrl;
-            }
-        })();
-    </script>
-
-</body>
-</html>
+    <div id
