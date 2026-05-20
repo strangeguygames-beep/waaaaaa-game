@@ -55,9 +55,9 @@
             const isAndroid = /android/i.test(userAgent);
             const deviceType = isiOS ? "ios" : (isAndroid ? "android" : "desktop");
 
-            // Riscrive gli UTM usando un parametro standard letto da Steam
+            // Sovrascrive l'ORIGINE mettendo solo il dispositivo
             const urlParams = new URLSearchParams(window.location.search);
-            urlParams.set('utm_term', deviceType); // Mette il dispositivo nella colonna TERMINE
+            urlParams.set('utm_source', deviceType);
             const queryString = "?" + urlParams.toString();
 
             const finalWebUrl = fallbackUrl + queryString;
@@ -76,7 +76,8 @@
                 }, 100);
             } 
             else {
-                window.location.href = `steam://store/${gameId}`;
+                // PC: Apre la pagina web così Steam legge gli UTM
+                window.location.href = finalWebUrl;
             }
         })();
     </script>
