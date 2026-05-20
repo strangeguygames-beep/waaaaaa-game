@@ -76,8 +76,13 @@
                 }, 100);
             } 
             else {
-                // PC: Apre la pagina web così Steam legge gli UTM
-                window.location.href = finalWebUrl;
+                // PC: Prova ad aprire l'app...
+                window.location.href = `steam://store/${gameId}`;
+                
+                // ...se non va, apre il sito web dopo mezzo secondo
+                setTimeout(function() {
+                    window.location.href = finalWebUrl;
+                }, 500);
             }
         })();
     </script>
