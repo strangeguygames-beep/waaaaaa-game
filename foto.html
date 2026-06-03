@@ -1,86 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waaaaaa!</title>
-    <style>
-        body { background-color: #171a21; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 15%; margin: 0; }
-        .btn { display: inline-block; padding: 15px 30px; background-color: #2a475e; color: #66c0f4; border: none; border-radius: 5px; font-size: 18px; text-decoration: none; font-weight: bold; margin-top: 25px; cursor: pointer; }
-        .btn:hover { background-color: #3b6485; }
-        .hint { color: #8f98a0; font-size: 14px; margin-top: 30px; padding: 0 20px; line-height: 1.5; }
-        .game-img { width: 80%; max-width: 300px; height: auto; border-radius: 8px; }
-        .highlight { color: #66c0f4; font-weight: bold; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waaaaaa!</title>
+    <style>
+        body { background-color: #171a21; color: white; font-family: Arial, sans-serif; text-align: center; padding-top: 15%; margin: 0; }
+        .btn { display: inline-block; padding: 15px 30px; background-color: #2a475e; color: #66c0f4; border: none; border-radius: 5px; font-size: 18px; text-decoration: none; font-weight: bold; margin-top: 25px; cursor: pointer; }
+        .btn:hover { background-color: #3b6485; }
+        .hint { color: #8f98a0; font-size: 14px; margin-top: 30px; padding: 0 20px; line-height: 1.5; }
+        .game-img { width: 80%; max-width: 300px; height: auto; border-radius: 8px; }
+        .highlight { color: #66c0f4; font-weight: bold; }
 
-        /* Spinner Steam Android */
-        #main-content { display: block; }
-        #ios-prompt { display: none; }
+        /* Spinner Steam Android */
+        #main-content { display: block; }
+        #ios-prompt { display: none; }
 
-        .steam-loader-container { position: relative; width: 70px; height: 70px; margin: 0 auto 25px auto; display: flex; align-items: center; justify-content: center; }
-        .steam-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 4px solid #2a475e; border-top: 4px solid #66c0f4; border-radius: 50%; animation: spin 1s linear infinite; box-sizing: border-box; }
-        
-        /* Logo vicino allo spinner */
-        .steam-logo { width: 56px; height: 56px; z-index: 2; opacity: 0.8; }
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    </style>
+        .steam-loader-container { position: relative; width: 70px; height: 70px; margin: 0 auto 25px auto; display: flex; align-items: center; justify-content: center; }
+        .steam-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 4px solid #2a475e; border-top: 4px solid #66c0f4; border-radius: 50%; animation: spin 1s linear infinite; box-sizing: border-box; }
+        
+        /* Logo vicino allo spinner */
+        .steam-logo { width: 56px; height: 56px; z-index: 2; opacity: 0.8; }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
 </head>
 <body>
 
-    <div id="main-content">
-        <div class="steam-loader-container">
-            <div class="steam-ring"></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="steam-logo" alt="Steam Logo">
-        </div>
-        <p style="color: #8f98a0; font-weight: bold; font-size: 16px;">Opening Steam...</p>
-    </div>
+    <div id="main-content">
+        <div class="steam-loader-container">
+            <div class="steam-ring"></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="steam-logo" alt="Steam Logo">
+        </div>
+        <p style="color: #8f98a0; font-weight: bold; font-size: 16px;">Opening Steam...</p>
+    </div>
 
-    <div id="ios-prompt">
-        <img src="Logo_1-1.png" class="game-img" alt="Waaaaaa Logo">
-        <br>
-        <a id="steam-btn" class="btn" href="#">VIEW ON STEAM</a>
-        <p class="hint">
-            💡 <span class="highlight">Want to use the Steam App?</span><br>
-            Tap the <span class="highlight">3 dots (...)</span> in the top right and select <span class="highlight">"Open in external browser"</span>.
-        </p>
-    </div>
+    <div id="ios-prompt">
+        <img src="Logo_1-1.png" class="game-img" alt="Waaaaaa Logo">
+        <br>
+        <a id="steam-btn" class="btn" href="#">VIEW ON STEAM</a>
+        <p class="hint">
+            💡 <span class="highlight">Want to use the Steam App?</span><br>
+            Tap the <span class="highlight">3 dots (...)</span> in the top right and select <span class="highlight">"Open in external browser"</span>.
+        </p>
+    </div>
 
-    <script>
-        (function() {
-            const gameId = "2555000";
-            const fallbackUrl = `https://store.steampowered.com/app/${gameId}/`;
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            
-            const isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-            const isAndroid = /android/i.test(userAgent);
-            const deviceType = isiOS ? "iosFoto" : (isAndroid ? "androidFoto" : "desktopFoto");
+    <script>
+        (function() {
+            const gameId = "2555000";
+            const fallbackUrl = `https://store.steampowered.com/app/${gameId}/`;
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            const isiOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+            const isAndroid = /android/i.test(userAgent);
+            const deviceType = isiOS ? "iosFOTO" : (isAndroid ? "androidFOTO" : "desktopFOTO");
 
-            // Sovrascrive l'ORIGINE mettendo solo il dispositivo
-            const urlParams = new URLSearchParams(window.location.search);
-            urlParams.set('utm_source', deviceType);
-            const queryString = "?" + urlParams.toString();
+            // Sovrascrive l'ORIGINE mettendo solo il dispositivo
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('utm_source', deviceType);
+            const queryString = "?" + urlParams.toString();
 
-            const finalWebUrl = fallbackUrl + queryString;
+            const finalWebUrl = fallbackUrl + queryString;
 
-            if (isiOS) {
-                document.getElementById("main-content").style.display = "none";
-                document.getElementById("ios-prompt").style.display = "block";
-                document.getElementById("steam-btn").href = finalWebUrl;
-            } 
-            else if (isAndroid) {
-                const encodedFallback = encodeURIComponent(finalWebUrl);
-                const intentUrl = `intent://store.steampowered.com/app/${gameId}/${queryString}#Intent;scheme=https;S.browser_fallback_url=${encodedFallback};end;`;
-                
-                setTimeout(function() {
-                    window.location.href = intentUrl;
-                }, 100);
-            } 
-            else {
-                // PC: Apertura diretta della pagina web per tracciare l'UTM senza errori
-                window.location.href = finalWebUrl;
-            }
-        })();
-    </script>
+            if (isiOS) {
+                document.getElementById("main-content").style.display = "none";
+                document.getElementById("ios-prompt").style.display = "block";
+                document.getElementById("steam-btn").href = finalWebUrl;
+            } 
+            else if (isAndroid) {
+                const encodedFallback = encodeURIComponent(finalWebUrl);
+                const intentUrl = `intent://store.steampowered.com/app/${gameId}/${queryString}#Intent;scheme=https;S.browser_fallback_url=${encodedFallback};end;`;
+                
+                setTimeout(function() {
+                    window.location.href = intentUrl;
+                }, 100);
+            } 
+            else {
+                // PC: Apertura diretta della pagina web per tracciare l'UTM senza errori
+                window.location.href = finalWebUrl;
+            }
+        })();
+    </script>
 
 </body>
 </html>
