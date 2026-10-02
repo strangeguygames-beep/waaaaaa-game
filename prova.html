@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waaaaaa! - Open in Steam</title>
+    <style>
+        body { 
+            background-color: #171a21; 
+            color: white; 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding-top: 10%; 
+            margin: 0; 
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .game-img { 
+            width: 80%; 
+            max-width: 280px; 
+            height: auto; 
+            border-radius: 8px; 
+            margin-bottom: 20px;
+        }
+        .btn-main { 
+            display: inline-block; 
+            width: 80%;
+            padding: 16px 20px; 
+            background-color: #66c0f4; 
+            color: #171a21; 
+            border: none; 
+            border-radius: 5px; 
+            font-size: 18px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .btn-main:hover { 
+            background-color: #4192c4; 
+        }
+        .btn-secondary {
+            display: inline-block;
+            margin-top: 15px;
+            color: #8f98a0;
+            text-decoration: underline;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            color: #ffffff;
+        }
+        .hint { 
+            color: #8f98a0; 
+            font-size: 14px; 
+            margin-top: 25px; 
+            line-height: 1.5; 
+        }
+        .highlight { 
+            color: #66c0f4; 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="Logo_1-1.png" class="game-img" alt="Waaaaaa Logo">
+        <h2>Ready to play Waaaaaa!?</h2>
+        <p class="hint">Click below to open the game directly in your Steam Desktop App.</p>
+        
+        <!-- Pulsante Principale per aprire l'App Windows -->
+        <button id="open-app-btn" class="btn-main">OPEN IN STEAM APP 🚀</button>
+        
+        <br>
+        
+        <!-- Link Web Fallback -->
+        <a id="web-link" class="btn-secondary" href="#">Continue in Web Browser instead</a>
+    </div>
+
+    <script>
+        (function() {
+            const gameId = "2555000";
+            
+            // Gestione dei parametri URL: imposta 'utm_source=prova' lasciando intatti gli altri parametri
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('utm_source', 'prova');
+            const queryString = "?" + urlParams.toString();
+
+            const finalWebUrl = `https://store.steampowered.com/app/${gameId}/${queryString}`;
+            const appUrl = `steam://store/${gameId}`;
+
+            // Imposta il link web alternativo
+            document.getElementById("web-link").href = finalWebUrl;
+
+            function triggerSteamApp() {
+                // Tenta l'apertura del client Steam per Windows
+                window.location.href = appUrl;
+
+                // Fallback: se l'app non risponde dopo 2 secondi, apre lo store sul web
+                setTimeout(function() {
+                    window.location.href = finalWebUrl;
+                }, 2000);
+            }
+
+            // Click sul pulsante principale
+            document.getElementById("open-app-btn").addEventListener("click", function() {
+                triggerSteamApp();
+            });
+
+            // Avvio automatico al caricamento della pagina
+            window.addEventListener("DOMContentLoaded", function() {
+                triggerSteamApp();
+            });
+        })();
+    </script>
+
+</body>
+</html>
